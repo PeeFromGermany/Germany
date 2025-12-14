@@ -1,4 +1,4 @@
-package org.germankids.germany;
+package org.germankids.germany.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.germankids.germany.Mayhem;
 import org.jetbrains.annotations.NotNull;
 
 public class MayhemCommand implements CommandExecutor {
