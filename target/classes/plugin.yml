@@ -1,0 +1,7 @@
+name: Germany
+version: '1.0-SNAPSHOT'
+main: org.germankids.germany.Germany
+api-version: '1.21'
+commands:
+  mayhem:
+    description: causes maybe on said player
