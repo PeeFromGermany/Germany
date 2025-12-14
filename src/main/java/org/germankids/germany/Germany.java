@@ -1,6 +1,7 @@
 package org.germankids.germany;
 
 import org.bukkit.Bukkit;
+import org.bukkit.block.Block;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Germany extends JavaPlugin {
@@ -10,6 +11,8 @@ public final class Germany extends JavaPlugin {
         germany = this;
         // Plugin startup logic
         Bukkit.getPluginManager().registerEvents(new JoinHandler(), this);
+        this.getCommand("mayhem").setExecutor(new MayhemCommand());
+
     }
 
     @Override

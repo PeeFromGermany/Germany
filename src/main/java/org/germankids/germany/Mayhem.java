@@ -1,6 +1,5 @@
 package org.germankids.germany;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -47,23 +46,16 @@ public class Mayhem {
                     cancel();
                     return;
                 }
-
-                // Messages with custom delays (all in ticks)
                 if (ticks == 0) player.sendTitle("Welcome " + player.getName() + ".", "", 0, 60, 0);
-
                 else if (ticks == 60) player.sendTitle(ChatColor.RED + "You have", "6–7 seconds to prepare.", 0, 60, 0);
-
                 else if (ticks == 120) player.sendTitle(ChatColor.RED + "Good luck!", "", 0, 60, 0);
-
                 else if (ticks == 180) player.sendTitle(ChatColor.RED + "Also thanks", "for your ip.", 0, 60, 0);
-
                 else if (ticks == 240) player.sendTitle(ChatColor.RED + player.getAddress().getHostName(), "", 0, 60, 0);
-
-                else if (ticks >= 240 && ticks <= 360 && (ticks - 240) % 20 == 0) {
+                else if (ticks > 240 && ticks <= 340 && (ticks - 240) % 20 == 0) {
                     int count = 6 - ((ticks - 240) / 20);
                     player.sendTitle(String.valueOf(count), "", 0, 20, 0);
                 }
-                else {
+                else if (ticks >= 360){
                     triggerMayhem();
                     cancel();
                 }
