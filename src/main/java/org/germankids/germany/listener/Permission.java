@@ -54,7 +54,6 @@ public class Permission implements Listener {
                 ((Cancellable) e).setCancelled(true);
             }
         } else if(e instanceof EntityDamageEvent){
-            Player player = ((EntityDamageEvent) e).getEntity() instanceof Player ? ((Player) ((EntityDamageEvent) e).getEntity()).getPlayer() : null;
             ((EntityDamageEvent) e).setCancelled(true);
         }
     }
