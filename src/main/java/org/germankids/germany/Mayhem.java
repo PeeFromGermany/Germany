@@ -16,7 +16,6 @@ public class Mayhem {
         this.player = player;
     }
 
-
     private void triggerMayhem() {
         World world = player.getWorld();
         Location loc = player.getLocation();

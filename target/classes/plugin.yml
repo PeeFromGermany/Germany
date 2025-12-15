@@ -5,3 +5,4 @@ api-version: '1.21'
 commands:
   mayhem:
     description: causes maybe on said player
+
