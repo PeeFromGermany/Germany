@@ -3,5 +3,6 @@ org\germankids\germany\commands\MayhemCommand.class
 org\germankids\germany\Mayhem.class
 org\germankids\germany\listener\JoinListener.class
 org\germankids\germany\Mayhem$1.class
+org\germankids\germany\game\games.class
 org\germankids\germany\listener\ItemInteract.class
 org\germankids\germany\Germany.class
