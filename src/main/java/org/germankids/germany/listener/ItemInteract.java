@@ -24,7 +24,7 @@ public class ItemInteract implements Listener{
     }
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e){
-        if(e.getCurrentItem() != null) {
+        if(e.getCurrentItem().getType() == Material.IRON_SWORD) {
             HumanEntity player = e.getWhoClicked();
             e.setCancelled(true);
             player.closeInventory();

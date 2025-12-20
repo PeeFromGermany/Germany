@@ -10,6 +10,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -19,7 +20,7 @@ public class Permission implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e){
-        cancelUnwanted(e);
+        if(!e.getWhoClicked().getGameMode().equals(GameMode.CREATIVE)) cancelUnwanted(e);
     }
     @EventHandler
     public void onOffHand(PlayerSwapHandItemsEvent e){
