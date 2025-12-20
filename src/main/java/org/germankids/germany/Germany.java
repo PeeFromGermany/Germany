@@ -17,6 +17,7 @@ public final class Germany extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new Permission(), this);
         Bukkit.getPluginManager().registerEvents(new ItemInteract(), this);
         this.getCommand("mayhem").setExecutor(new MayhemCommand());
+
     }
     @Override
     public void onDisable() {
