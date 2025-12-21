@@ -26,9 +26,10 @@ public class JoinManager implements Listener {
 
     @EventHandler
     public void onAttemptGameJoin(InventoryClickEvent e){
-        var player = ((Player) e.getWhoClicked()).getPlayer();
         var itemStack = e.getCurrentItem();
-        if (player == null && itemStack == null) return;
+        if (itemStack == null) return;
+
+        var player = ((Player) e.getWhoClicked()).getPlayer();
         var clickedOn = itemStack.getType();
         if (clickedOn == Material.DIAMOND_SWORD) {
             //put him in the game
