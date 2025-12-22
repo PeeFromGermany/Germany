@@ -6,10 +6,17 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.germankids.germany.Germany;
 import org.germankids.germany.Mayhem;
 import org.jetbrains.annotations.NotNull;
 
 public class MayhemCommand implements CommandExecutor {
+
+    private Germany germany;
+
+    public MayhemCommand(Germany germany){
+        this.germany = germany;
+    }
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] strings) {
         if (commandSender instanceof Player player){
@@ -18,7 +25,7 @@ public class MayhemCommand implements CommandExecutor {
                 String argument = strings[0];
                 if (Bukkit.getPlayer(argument) != null){
                     Player playerTarget = Bukkit.getPlayer(argument);
-                    Mayhem mayhem = new Mayhem(playerTarget);
+                    Mayhem mayhem = new Mayhem(playerTarget, germany);
                     mayhem.sendPrayers();
                 }
             }

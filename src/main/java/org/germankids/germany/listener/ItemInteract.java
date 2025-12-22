@@ -22,15 +22,6 @@ public class ItemInteract implements Listener{
             player.openInventory(initializeGui());
         }
     }
-    @EventHandler
-    public void onInventoryClick(InventoryClickEvent e){
-        if(e.getCurrentItem() != null && e.getCurrentItem().getType() == Material.IRON_SWORD) {
-            HumanEntity player = e.getWhoClicked();
-            e.setCancelled(true);
-            player.closeInventory();
-            player.sendMessage("you have clicked the sword");
-        }
-    }
 
     private Inventory initializeGui(){
         final Inventory inv = Bukkit.createInventory(null, 9, "Menu");

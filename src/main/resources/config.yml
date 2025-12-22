@@ -5,3 +5,10 @@ game-lobby:
   z: -121.5
   yaw: -90
   pitch: 0
+game-lobby2:
+  world: 'world'
+  x: 52.5
+  y: 149
+  z: -121.5
+  yaw: -90
+  pitch: 0

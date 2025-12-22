@@ -11,14 +11,14 @@ public class ConfigManager {
         ConfigManager.config = germany.getConfig();
         germany.saveDefaultConfig();
     }
-    public static Location getGameLobby(){
+    public static Location getGameLobby(int lobbySpawnId){
         return new Location(
-                Bukkit.getWorld(config.getString("game-lobby.world")),
-                config.getDouble("game-lobby.x"),
-                config.getDouble("game-lobby.y"),
-                config.getDouble("game-lobby.z"),
-                (float) config.getDouble("game-lobby.yaw"),
-                (float) config.getDouble("game-lobby.pitch")
+                Bukkit.getWorld("game-lobby." + lobbySpawnId),
+                config.getDouble("game-lobby." + lobbySpawnId + ".x"),
+                config.getDouble("game-lobby." + lobbySpawnId + ".y"),
+                config.getDouble("game-lobby." + lobbySpawnId + ".z"),
+                (float) config.getDouble("game-lobby." + lobbySpawnId + ".yaw"),
+                (float) config.getDouble("game-lobby." + lobbySpawnId + ".pitch")
         );
     }
 }

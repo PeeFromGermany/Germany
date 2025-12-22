@@ -1,7 +1,15 @@
+C:\Users\beri\Desktop\GermanyKids\Germany\src\main\java\org\germankids\germany\commands\DragonEggGame.java
 C:\Users\beri\Desktop\GermanyKids\Germany\src\main\java\org\germankids\germany\commands\MayhemCommand.java
-C:\Users\beri\Desktop\GermanyKids\Germany\src\main\java\org\germankids\germany\game\games.java
+C:\Users\beri\Desktop\GermanyKids\Germany\src\main\java\org\germankids\germany\game\Countdown.java
+C:\Users\beri\Desktop\GermanyKids\Germany\src\main\java\org\germankids\germany\game\Game.java
+C:\Users\beri\Desktop\GermanyKids\Germany\src\main\java\org\germankids\germany\game\Games.java
+C:\Users\beri\Desktop\GermanyKids\Germany\src\main\java\org\germankids\germany\game\GameUtil.java
 C:\Users\beri\Desktop\GermanyKids\Germany\src\main\java\org\germankids\germany\Germany.java
 C:\Users\beri\Desktop\GermanyKids\Germany\src\main\java\org\germankids\germany\listener\ItemInteract.java
 C:\Users\beri\Desktop\GermanyKids\Germany\src\main\java\org\germankids\germany\listener\JoinListener.java
 C:\Users\beri\Desktop\GermanyKids\Germany\src\main\java\org\germankids\germany\listener\Permission.java
+C:\Users\beri\Desktop\GermanyKids\Germany\src\main\java\org\germankids\germany\manager\ConfigManager.java
+C:\Users\beri\Desktop\GermanyKids\Germany\src\main\java\org\germankids\germany\manager\GameManager.java
+C:\Users\beri\Desktop\GermanyKids\Germany\src\main\java\org\germankids\germany\manager\JoinManager.java
 C:\Users\beri\Desktop\GermanyKids\Germany\src\main\java\org\germankids\germany\Mayhem.java
+C:\Users\beri\Desktop\GermanyKids\Germany\src\main\java\org\germankids\germany\scoreboard\DragonEggScoreboard.java

@@ -12,13 +12,13 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        player.teleport(ConfigManager.getGameLobby());
         player.setGameMode(GameMode.ADVENTURE);
         resetInventory(player);
     }
 
     private void resetInventory(Player player){
         player.getInventory().clear();
+        //Put a cool name on the compass.
         player.getInventory().setItem(4, new ItemStack(Material.COMPASS));
     }
 

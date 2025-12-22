@@ -8,11 +8,15 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import static org.germankids.germany.Germany.germany;
 
 public class Mayhem {
+
+    private Germany germany;
     private Player player;
-    public Mayhem(Player player){
+
+
+    public Mayhem(Player player, Germany germany){
+        this.germany = germany;
         this.player = player;
     }
 

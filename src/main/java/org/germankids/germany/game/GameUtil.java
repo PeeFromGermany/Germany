@@ -5,7 +5,6 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -28,8 +27,8 @@ public class GameUtil {
         } catch (NullPointerException e){
             System.out.println(e.getMessage());
         }
-        player.getInventory().clear();
     }
+
     private void giveItem(Player player, Material material, int slot, String name, ChatColor chatColor){
         ItemStack item = new ItemStack(material);
         ItemMeta itemMeta = item.getItemMeta();
@@ -38,10 +37,14 @@ public class GameUtil {
         player.getInventory().setItem(slot, item);
     }
 
-    public void setJoinAttributes(Player player){
+    public void setJoinInventory(Player player){
+        player.getInventory().clear();;
+        player.setGameMode(GameMode.ADVENTURE);
+        giveItem(player, Material.REDSTONE, 8, "Leave", ChatColor.RED);
+    }
+    public void setLeaveInventory(Player player){
         player.getInventory().clear();
-        player.give(new ItemStack(Material.REDSTONE));
-        player.setGameMode(GameMode.SURVIVAL);
-        giveItem(player, Material.REDSTONE, 9, "Leave", ChatColor.RED);
+        player.setGameMode(GameMode.ADVENTURE);
+        giveItem(player, Material.COMPASS, 4, "Join Game", ChatColor.AQUA);
     }
 }
