@@ -1,6 +1,7 @@
 package org.germankids.germany.scoreboard;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
 public class DragonEggScoreboard{
@@ -11,7 +12,10 @@ public class DragonEggScoreboard{
             Criteria.DUMMY,
             "test"
     );
+
     private void showScoreboard(){
-        //player.setScoreboard(board);
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            p.setScoreboard(board);
+        }
     }
 }

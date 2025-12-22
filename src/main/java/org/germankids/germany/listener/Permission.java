@@ -1,11 +1,13 @@
 package org.germankids.germany.listener;
 
 import org.bukkit.GameMode;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
@@ -50,14 +52,24 @@ public class Permission implements Listener {
         e.setCancelled(true);
     }
 
+    private void cancel(Player player, Event e){
+        if (player.getGameMode() != GameMode.CREATIVE){
+            ((Cancellable) e).setCancelled(true);
+        }
+    }
+
     private void cancelUnwanted(Event e){
-        if(e instanceof Cancellable && e instanceof PlayerEvent){
-            Player player = ((PlayerEvent) e).getPlayer();
-            if (player.getGameMode() != GameMode.CREATIVE && ){
-                ((Cancellable) e).setCancelled(true);
+        if(e instanceof Cancellable && e instanceof PlayerEvent playerEvent){
+            Player player = playerEvent.getPlayer();
+            cancel(player, e);
+        } else if(e instanceof EntityDamageByEntityEvent entityDamageByEntityEvent) {
+            Entity damagingEntity = entityDamageByEntityEvent.getDamager();
+            if (damagingEntity instanceof Player player) {
+                cancel(player, e);
             }
-        } else if(e instanceof EntityDamageEvent){
-            ((EntityDamageEvent) e).setCancelled(true);
+        }
+        else if (e instanceof EntityDamageEvent entityDamageEvent){
+            entityDamageEvent.setCancelled(true);
         }
     }
 }

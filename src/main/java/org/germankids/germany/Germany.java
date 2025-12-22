@@ -17,18 +17,18 @@ public final class Germany extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        ConfigManager.setupConfig(this);
+
 
         gameManager = new GameManager();
         JoinManager joinManager = new JoinManager(this);
+
+        ConfigManager.setupConfig(this);
         Bukkit.getPluginManager().registerEvents(joinManager, this);
-
-
-
         Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
         Bukkit.getPluginManager().registerEvents(new Permission(), this);
         Bukkit.getPluginManager().registerEvents(new ItemInteract(), this);
         getCommand("mayhem").setExecutor(new MayhemCommand(this));
-        ConfigManager.setupConfig(this);
     }
     @Override
     public void onDisable() {

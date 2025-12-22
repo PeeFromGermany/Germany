@@ -2,7 +2,7 @@ game-lobby:
   world: 'world'
   x: -21.5
   y: 7
-  z: 291.5
+  z: 290
   yaw: 0
   pitch: 0
 game-lobby2:

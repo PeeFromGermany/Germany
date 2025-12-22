@@ -1,9 +1,9 @@
 package org.germankids.germany.game;
 
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.germankids.germany.manager.ConfigManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.UUID;
 public class Games {
 
     private final int REQUIRED_PLAYERS = 2;
-    private final Location gameLobbySpawn = new Location(Bukkit.getWorld("world"),52.5,149,-121.5,-90,0);
+    private final Location gameLobbySpawn = ConfigManager.getGameLobby();
     private int gameId;
     private List<UUID> uuidList = new ArrayList<>();
     private GameUtil gameUtil = new GameUtil();
@@ -51,5 +51,6 @@ public class Games {
         uuidList.remove(uuid);
         gameUtil.setLeaveInventory(player);
         gameUtil.setGameAttributesAfterLeave(player);
+        player.teleport(ConfigManager.getLobby());
     }
 }
