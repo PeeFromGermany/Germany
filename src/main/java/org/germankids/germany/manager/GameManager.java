@@ -2,6 +2,7 @@ package org.germankids.germany.manager;
 
 
 import org.bukkit.entity.Player;
+import org.germankids.germany.Germany;
 import org.germankids.germany.game.Games;
 
 import java.util.ArrayList;
@@ -10,15 +11,18 @@ import java.util.UUID;
 
 public class GameManager {
 
+    private Germany germany;
+
     private List<Games> gamesList = new ArrayList<>();
     private final int gameOne = 1;
     private final int gameTwo = 2;
     public List<Games> getGamesList(){return gamesList;}
 
 
-    public GameManager(){
-        gamesList.add(new Games(gameOne));
-        gamesList.add(new Games(gameTwo));
+    public GameManager(Germany germany){
+        this.germany = germany;
+        gamesList.add(new Games(gameOne,germany));
+        gamesList.add(new Games(gameTwo, germany));
     }
 
     public Games getGame(Player player){

@@ -2,6 +2,7 @@ package org.germankids.germany;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.germankids.germany.minigames.DragonEggGame;
 import org.germankids.germany.commands.MayhemCommand;
 import org.germankids.germany.listener.ItemInteract;
 import org.germankids.germany.listener.JoinListener;
@@ -20,7 +21,7 @@ public final class Germany extends JavaPlugin {
         ConfigManager.setupConfig(this);
 
 
-        gameManager = new GameManager();
+        gameManager = new GameManager(this);
         JoinManager joinManager = new JoinManager(this);
 
         ConfigManager.setupConfig(this);
