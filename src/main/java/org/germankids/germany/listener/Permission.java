@@ -57,7 +57,6 @@ public class Permission implements Listener {
             ((Cancellable) e).setCancelled(true);
         }
     }
-
     private void cancelUnwanted(Event e){
         if(e instanceof Cancellable && e instanceof PlayerEvent playerEvent){
             Player player = playerEvent.getPlayer();

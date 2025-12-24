@@ -19,6 +19,7 @@ public class JoinListener implements Listener {
         player.setGameMode(GameMode.ADVENTURE);
         resetInventory(player);
         player.teleport(lobbySpawn);
+
     }
 
     private void resetInventory(Player player){
