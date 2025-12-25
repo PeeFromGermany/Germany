@@ -2,7 +2,6 @@ package org.germankids.germany;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.germankids.germany.minigames.DragonEggGame;
 import org.germankids.germany.commands.MayhemCommand;
 import org.germankids.germany.listener.ItemInteract;
 import org.germankids.germany.listener.JoinListener;
@@ -10,6 +9,7 @@ import org.germankids.germany.listener.Permission;
 import org.germankids.germany.manager.ConfigManager;
 import org.germankids.germany.manager.GameManager;
 import org.germankids.germany.manager.JoinManager;
+import org.germankids.germany.score.ScoreAdder;
 
 public final class Germany extends JavaPlugin {
 
@@ -25,6 +25,8 @@ public final class Germany extends JavaPlugin {
         JoinManager joinManager = new JoinManager(this);
 
         ConfigManager.setupConfig(this);
+
+        Bukkit.getPluginManager().registerEvents(new ScoreAdder(this),this);
         Bukkit.getPluginManager().registerEvents(joinManager, this);
         Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
         Bukkit.getPluginManager().registerEvents(new Permission(), this);

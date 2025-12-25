@@ -44,12 +44,13 @@ public class Games {
         // after removing a player a new sendmessage or title idk is sent to the player and then countdown will stop by itself.
         // look how it stops in the Countdown class.
         dragonEggGame.start();
+        gameStatus = GameStatus.LIVE;
     }
     public void reset(){
         uuidList.clear();
-        gameStatus = GameStatus.RECRUITING;
         dragonEggGame = new DragonEggGame(this);
-        countdown = new Countdown(this,germany,dragonEggGame);
+        countdown = new Countdown(this, germany, dragonEggGame);
+        gameStatus = GameStatus.RECRUITING;
     }
 
     public void addPlayer(Player player){
@@ -69,7 +70,6 @@ public class Games {
         gameUtil.setLeaveInventory(player);
         gameUtil.setGameAttributesAfterLeave(player);
         player.teleport(lobbySpawn);
-
         if (getUuidList().size() < REQUIRED_PLAYERS && gameStatus == GameStatus.RECRUITING){
             countdown.cancel();
             sendMessage("There aren't enough players.");
@@ -98,5 +98,8 @@ public class Games {
     public Location getGameLobbySpawn(){return gameLobbySpawn;}
     public void setGameStatus(GameStatus gameStatus){
         this.gameStatus = gameStatus;
+    }
+    public DragonEggGame getGame(){
+        return dragonEggGame;
     }
 }

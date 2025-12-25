@@ -37,12 +37,16 @@ public class Countdown extends BukkitRunnable{
         } else {
             games.sendTitle("Game will start in", String.valueOf(startingSeconds));
         }
+        startingSeconds--;
+        makeWaitTickSound();
     }
 
-    private void makeTickSound(){
+    private void makeWaitTickSound(){
         for(UUID uuid : games.getUuidList()){
             Player player = Bukkit.getPlayer(uuid);
-            player.playSound(player, Sound.BLOCK_NOTE_BLOCK_HAT, 10, 1);
+            if (player != null){
+                player.playSound(player, Sound.BLOCK_NOTE_BLOCK_HAT, 10, 1);
+            }
         }
     }
 }

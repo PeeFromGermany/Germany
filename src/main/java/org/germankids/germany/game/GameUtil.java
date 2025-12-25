@@ -10,9 +10,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class GameUtil {
-    private final double SCALE_SIZE = 0.1;
+
+
     public void setGameAttributesAfterStart(Player player){
         AttributeInstance a = player.getAttribute(Attribute.SCALE);
+        final double SCALE_SIZE = 0.1;
         try{
             a.setBaseValue(SCALE_SIZE);
         } catch (NullPointerException e){
@@ -46,5 +48,12 @@ public class GameUtil {
         player.getInventory().clear();
         player.setGameMode(GameMode.ADVENTURE);
         giveItem(player, Material.COMPASS, 4, "Join Game", ChatColor.AQUA);
+    }
+
+    public static void addPointSound(Player player){
+        player.playSound(player, Sound.BLOCK_NOTE_BLOCK_COW_BELL, 1f ,1f);
+    }
+    public static void sendWinTitle(Player player){
+        player.sendTitle("CONGRATS, YOUVE WON THE GAME. but no nigga cares so jump out of the window", "GOOD LUCK");
     }
 }

@@ -53,10 +53,16 @@ public class Permission implements Listener {
     }
 
     private void cancel(Player player, Event e){
+        if (germany.gameManager().getGame(player) == null) return;
         if (player.getGameMode() != GameMode.CREATIVE){
             ((Cancellable) e).setCancelled(true);
         }
     }
+
+    private void cancel(Event e){
+        ((Cancellable) e).setCancelled(true);
+    }
+
     private void cancelUnwanted(Event e){
         if(e instanceof Cancellable && e instanceof PlayerEvent playerEvent){
             Player player = playerEvent.getPlayer();
@@ -68,7 +74,7 @@ public class Permission implements Listener {
             }
         }
         else if (e instanceof EntityDamageEvent entityDamageEvent){
-            entityDamageEvent.setCancelled(true);
+            cancel(entityDamageEvent);
         }
     }
 }

@@ -16,14 +16,12 @@ public class DragonEggGame {
 
     private Games games;
 
-
     private final double coordsX = 29.5;
     private final double coordsY = 6;
     private final double coordsZ = 306.5;
     private final int maxXRange = (int) (coordsX - 13.5);
     private final int maxZRange = (int) (coordsZ - 290.5);
     private HashMap<UUID, Integer> playerStats;
-
     public DragonEggGame(Games games){
         this.games = games;
         playerStats = new HashMap<>();
@@ -39,12 +37,12 @@ public class DragonEggGame {
         Random random = new Random();
         return random.nextInt(max - min) + min;
     }
-    private void spawnDragonEggAtRandomLoc(){
+
+    public void spawnDragonEggAtRandomLoc(){
         World world = Bukkit.getWorld("world");
         Block block = world.getBlockAt(spawnLocation());
         block.setType(Material.DRAGON_EGG);
     }
-
 
     public void start(){
         for (UUID uuid : games.getUuidList()){
@@ -55,5 +53,8 @@ public class DragonEggGame {
     public void addPoint(Player player){
         UUID playerUUID = player.getUniqueId();
         playerStats.replace(playerUUID, playerStats.get(playerUUID) + 1);
+        if (playerStats.get(playerUUID) == 20){
+            games.reset();
+        }
     }
 }
