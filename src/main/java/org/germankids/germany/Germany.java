@@ -8,7 +8,7 @@ import org.germankids.germany.listener.JoinListener;
 import org.germankids.germany.listener.Permission;
 import org.germankids.germany.manager.ConfigManager;
 import org.germankids.germany.manager.GameManager;
-import org.germankids.germany.manager.JoinManager;
+import org.germankids.germany.manager.GameJoinManager;
 import org.germankids.germany.score.ScoreAdder;
 
 public final class Germany extends JavaPlugin {
@@ -22,14 +22,14 @@ public final class Germany extends JavaPlugin {
 
 
         gameManager = new GameManager(this);
-        JoinManager joinManager = new JoinManager(this);
+        GameJoinManager gameJoinManager = new GameJoinManager(this);
 
         ConfigManager.setupConfig(this);
 
         Bukkit.getPluginManager().registerEvents(new ScoreAdder(this),this);
-        Bukkit.getPluginManager().registerEvents(joinManager, this);
+        Bukkit.getPluginManager().registerEvents(gameJoinManager, this);
         Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
-        Bukkit.getPluginManager().registerEvents(new Permission(), this);
+        Bukkit.getPluginManager().registerEvents(new Permission(this), this);
         Bukkit.getPluginManager().registerEvents(new ItemInteract(), this);
         getCommand("mayhem").setExecutor(new MayhemCommand(this));
     }
@@ -42,3 +42,4 @@ public final class Germany extends JavaPlugin {
         return gameManager;
     }
 }
+

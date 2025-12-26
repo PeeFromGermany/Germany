@@ -12,6 +12,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class ItemInteract implements Listener{
+    private Inventory inventory;
+
+    public ItemInteract(){
+        inventory = Bukkit.createInventory(null, 9, "Menu");
+        inventory.addItem(createGuiItem(Material.DIAMOND_SWORD, ChatColor.BLUE + "Game 1"));
+    }
 
     @EventHandler
     public void onCompassRightClick(PlayerInteractEvent e){
@@ -22,14 +28,12 @@ public class ItemInteract implements Listener{
     }
 
     private Inventory initializeGui(){
-        final Inventory inv = Bukkit.createInventory(null, 9, "Menu");
-        inv.addItem(createGuiItem(Material.DIAMOND_SWORD, ChatColor.BLUE + "Game 1"));
-        return inv;
+        return inventory;
     }
 
-    private ItemStack createGuiItem(final Material material, final String name) {
-        final ItemStack item = new ItemStack(material, 1);
-        final ItemMeta meta = item.getItemMeta();
+    private ItemStack createGuiItem(Material material, String name) {
+        ItemStack item = new ItemStack(material, 1);
+        ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(name);
         item.setItemMeta(meta);
         return item;

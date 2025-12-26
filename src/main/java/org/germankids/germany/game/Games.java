@@ -2,7 +2,9 @@ package org.germankids.germany.game;
 
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.germankids.germany.Germany;
 import org.germankids.germany.manager.ConfigManager;
@@ -24,16 +26,15 @@ public class Games {
     public final Location lobbySpawn = ConfigManager.getLobby();
     private int gameId;
     private List<UUID> uuidList;
-    private GameUtil gameUtil;
     private GameStatus gameStatus;
 
 
     public Games(int gameId, Germany germany){
+        this.germany = germany;
         this.gameId = gameId;
         dragonEggGame = new DragonEggGame(this);
-        countdown = new Countdown(this, germany, dragonEggGame);
+        countdown = new Countdown(this, germany);
         uuidList = new ArrayList<>();
-        gameUtil = new GameUtil();
         gameStatus = GameStatus.RECRUITING;
     }
 
@@ -48,16 +49,21 @@ public class Games {
     }
     public void reset(){
         uuidList.clear();
-        dragonEggGame = new DragonEggGame(this);
-        countdown = new Countdown(this, germany, dragonEggGame);
         gameStatus = GameStatus.RECRUITING;
+        dragonEggGame = new DragonEggGame(this);
+        countdown = new Countdown(this, germany);
     }
 
     public void addPlayer(Player player){
+        if (gameStatus == GameStatus.LIVE){
+            player.sendMessage(ChatColor.RED + "The game has already started.");
+            return;
+        }
+        player.teleport(gameLobbySpawn);
+        player.getInventory().clear();
+        GameUtil.giveItem(player, Material.REDSTONE,4, "Leave", ChatColor.RED);
         UUID uuid = player.getUniqueId();
         uuidList.add(uuid);
-        gameUtil.setJoinInventory(player);
-        player.teleport(gameLobbySpawn);
         if (uuidList.size() >= REQUIRED_PLAYERS){
             countdown.start();
             gameStatus = GameStatus.STARTING;
@@ -67,10 +73,11 @@ public class Games {
     public void removePlayer(Player player){
         UUID uuid = player.getUniqueId();
         uuidList.remove(uuid);
-        gameUtil.setLeaveInventory(player);
-        gameUtil.setGameAttributesAfterLeave(player);
         player.teleport(lobbySpawn);
-        if (getUuidList().size() < REQUIRED_PLAYERS && gameStatus == GameStatus.RECRUITING){
+        player.getInventory().clear();
+        GameUtil.giveItem(player, Material.COMPASS,4,"Game Selector", ChatColor.AQUA);
+        if (getUuidList().size() < REQUIRED_PLAYERS && gameStatus == GameStatus.STARTING){
+            gameStatus = GameStatus.RECRUITING;
             countdown.cancel();
             sendMessage("There aren't enough players.");
         }
@@ -86,7 +93,7 @@ public class Games {
     public void sendTitle(String title, String subTitle){
         for(UUID uuid : getUuidList()){
             Player player = Bukkit.getPlayer(uuid);
-            player.sendTitle(title,subTitle);
+            player.sendTitle(title,subTitle, 5, 10, 5);
         }
     }
 
@@ -95,11 +102,7 @@ public class Games {
     }
     public List<UUID> getUuidList() {return uuidList;}
     public int getGameId(){return gameId;}
-    public Location getGameLobbySpawn(){return gameLobbySpawn;}
-    public void setGameStatus(GameStatus gameStatus){
-        this.gameStatus = gameStatus;
-    }
-    public DragonEggGame getGame(){
+    public DragonEggGame getDragonEggGame(){
         return dragonEggGame;
     }
 }

@@ -1,10 +1,10 @@
-org\germankids\germany\game\Countdown$1.class
 org\germankids\germany\listener\Permission.class
 org\germankids\germany\game\Games.class
 org\germankids\germany\game\GameUtil.class
 org\germankids\germany\Mayhem.class
 org\germankids\germany\Mayhem$1.class
-org\germankids\germany\manager\JoinManager.class
+org\germankids\germany\score\ScoreAdder.class
+org\germankids\germany\manager\GameJoinManager.class
 org\germankids\germany\listener\ItemInteract.class
 org\germankids\germany\manager\ConfigManager.class
 org\germankids\germany\Germany.class

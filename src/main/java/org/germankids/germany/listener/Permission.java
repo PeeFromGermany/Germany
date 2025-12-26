@@ -16,65 +16,68 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.germankids.germany.Germany;
 
 public class Permission implements Listener {
 
+    private Germany germany;
 
-
-
-    @EventHandler
-    public void onInventoryClick(InventoryClickEvent e){
-        if(!e.getWhoClicked().getGameMode().equals(GameMode.CREATIVE)) cancelUnwanted(e);
+    public Permission(Germany germany){
+        this.germany = germany;
     }
-    @EventHandler
-    public void onOffHand(PlayerSwapHandItemsEvent e){
-        cancelUnwanted(e);
-    }
-    @EventHandler
-    public void onEntityDamage(EntityDamageEvent e){
-        cancelUnwanted(e);
-    }
-    @EventHandler
-    public void onHungerDepletion(FoodLevelChangeEvent e){
-        cancelUnwanted(e);
-        e.setFoodLevel(20);
-    }
-    @EventHandler
-    public void onItemDrop(PlayerDropItemEvent e){
-        cancelUnwanted(e);
-    }
-    @EventHandler
-    public void onInteract(PlayerInteractEvent e){
-        cancelUnwanted(e);
-    }
-    @EventHandler
-    public void onMobTarget(EntityTargetLivingEntityEvent e){
-        e.setCancelled(true);
-    }
-
-    private void cancel(Player player, Event e){
-        if (germany.gameManager().getGame(player) == null) return;
-        if (player.getGameMode() != GameMode.CREATIVE){
-            ((Cancellable) e).setCancelled(true);
-        }
-    }
-
-    private void cancel(Event e){
-        ((Cancellable) e).setCancelled(true);
-    }
-
-    private void cancelUnwanted(Event e){
-        if(e instanceof Cancellable && e instanceof PlayerEvent playerEvent){
-            Player player = playerEvent.getPlayer();
-            cancel(player, e);
-        } else if(e instanceof EntityDamageByEntityEvent entityDamageByEntityEvent) {
-            Entity damagingEntity = entityDamageByEntityEvent.getDamager();
-            if (damagingEntity instanceof Player player) {
-                cancel(player, e);
-            }
-        }
-        else if (e instanceof EntityDamageEvent entityDamageEvent){
-            cancel(entityDamageEvent);
-        }
-    }
+//    @EventHandler
+//    public void onInventoryClick(InventoryClickEvent e){
+//        if(!e.getWhoClicked().getGameMode().equals(GameMode.CREATIVE)) cancelUnwanted(e);
+//    }
+//    @EventHandler
+//    public void onOffHand(PlayerSwapHandItemsEvent e){
+//        cancelUnwanted(e);
+//    }
+//    @EventHandler
+//    public void onEntityDamage(EntityDamageEvent e){
+//        cancelUnwanted(e);
+//    }
+//    @EventHandler
+//    public void onHungerDepletion(FoodLevelChangeEvent e){
+//        cancelUnwanted(e);
+//        e.setFoodLevel(20);
+//    }
+//    @EventHandler
+//    public void onItemDrop(PlayerDropItemEvent e){
+//        cancelUnwanted(e);
+//    }
+//    @EventHandler
+//    public void onInteract(PlayerInteractEvent e){
+//        cancelUnwanted(e);
+//    }
+//    @EventHandler
+//    public void onMobTarget(EntityTargetLivingEntityEvent e){
+//        e.setCancelled(true);
+//    }
+//
+//    private void cancel(Player player, Event e){
+//        if (germany.gameManager().getGame(player) == null) return;
+//        if (player.getGameMode() != GameMode.CREATIVE){
+//            ((Cancellable) e).setCancelled(true);
+//        }
+//    }
+//
+//    private void cancel(Event e){
+//        ((Cancellable) e).setCancelled(true);
+//    }
+//
+//    private void cancelUnwanted(Event e){
+//        if(e instanceof Cancellable && e instanceof PlayerEvent playerEvent){
+//            Player player = playerEvent.getPlayer();
+//            cancel(player, e);
+//        } else if(e instanceof EntityDamageByEntityEvent entityDamageByEntityEvent) {
+//            Entity damagingEntity = entityDamageByEntityEvent.getDamager();
+//            if (damagingEntity instanceof Player player) {
+//                cancel(player, e);
+//            }
+//        }
+//        else if (e instanceof EntityDamageEvent entityDamageEvent){
+//            cancel(entityDamageEvent);
+//        }
+//    }
 }

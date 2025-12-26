@@ -13,13 +13,11 @@ public class Countdown extends BukkitRunnable{
 
     private Games games;
     private Germany germany;
-    private DragonEggGame dragonEggGame;
     private int startingSeconds = 15;
 
-    public Countdown(Games games, Germany germany, DragonEggGame dragonEggGame){
+    public Countdown(Games games, Germany germany){
         this.games = games;
         this.germany = germany;
-        this.dragonEggGame = dragonEggGame;
     }
 
     public void start(){

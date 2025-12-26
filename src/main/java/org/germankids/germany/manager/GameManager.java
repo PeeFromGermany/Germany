@@ -21,7 +21,7 @@ public class GameManager {
 
     public GameManager(Germany germany){
         this.germany = germany;
-        gamesList.add(new Games(gameOne,germany));
+        gamesList.add(new Games(gameOne, germany));
         gamesList.add(new Games(gameTwo, germany));
     }
 

@@ -23,16 +23,16 @@ public class ScoreAdder implements Listener {
         Block block = event.getClickedBlock();
         if (event.getAction().isRightClick() && block != null){
             Material materialOfClickedOn = event.getClickedBlock().getType();
-            if (materialOfClickedOn == Material.ENDER_DRAGON_SPAWN_EGG){
+            if (materialOfClickedOn == Material.PODZOL){
                 Player player = event.getPlayer();
                 Games games = germany.gameManager().getGame(player);
-                if (games == null || games.getGameStatus() == GameStatus.LIVE){
+                if (games == null || games.getGameStatus() != GameStatus.LIVE){
                     return;
                 }
-                games.getGame().addPoint(player);
+                games.getDragonEggGame().addPoint(player);
                 GameUtil.addPointSound(player);
                 block.setType(Material.AIR);
-                games.getGame().spawnDragonEggAtRandomLoc();
+                games.getDragonEggGame().spawnDragonEggAtRandomLoc();
             }
         }
     }

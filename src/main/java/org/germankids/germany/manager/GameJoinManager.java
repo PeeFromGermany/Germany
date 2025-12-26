@@ -9,11 +9,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.germankids.germany.Germany;
 import org.germankids.germany.game.Games;
 
-public class JoinManager implements Listener {
+public class GameJoinManager implements Listener {
 
     private Germany germany;
 
-    public JoinManager(Germany germany){
+    public GameJoinManager(Germany germany){
         this.germany = germany;
     }
 
@@ -21,6 +21,7 @@ public class JoinManager implements Listener {
         Games game = germany.gameManager().getGame(gameId);
         game.addPlayer(player);
     }
+
     private void removePlayer(Player player){
         Games game = germany.gameManager().getGame(player);
         game.removePlayer(player);
@@ -43,5 +44,4 @@ public class JoinManager implements Listener {
         var clickedOnItem = itemStack.getType();
         if(clickedOnItem == Material.REDSTONE) removePlayer(player);
     }
-
 }
