@@ -69,10 +69,9 @@ public class DragonEggGame {
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("+1 Point " + "( " + playerStats.get(playerUUID) + " / " + MAX_SCORE + " )"));
 
         if (playerStats.get(playerUUID) == 20){
-            //have to test
-
             for(UUID uuid : playerStats.keySet()){
                 Player player1 = Bukkit.getPlayer(uuid);
+                player1.sendMessage("The winner of the game is " + player.getName());
                 player1.teleport(games.lobbySpawn);
                 player1.getInventory().clear();
                 GameUtil.giveItem(player1, Material.COMPASS, 4, "Game Selector", ChatColor.AQUA);
