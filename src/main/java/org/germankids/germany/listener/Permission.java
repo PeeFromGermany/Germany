@@ -8,6 +8,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.germankids.germany.Germany;
@@ -33,9 +34,12 @@ public class Permission implements Listener {
     //EventHandlers
         //PlayerEvents
     @EventHandler
-    public void onPlayerDamagePlayer(EntityDamageByEntityEvent event){
-        cancelPlayerDamagePlayerEvent(event);
+    public void onPlayerDamageEntity(EntityDamageByEntityEvent event){
         cancelDecorDamage(event);
+    }
+    @EventHandler
+    public void onEntityDamage(EntityDamageEvent event){
+        cancelDamageAtSpawn(event);
     }
     @EventHandler
     public void onPlayerDropItem(PlayerDropItemEvent event){
@@ -70,14 +74,6 @@ public class Permission implements Listener {
             cancellableEvent.setCancelled(true);
         }
     }
-    private void cancelPlayerDamagePlayerEvent(EntityDamageByEntityEvent entityDamageByEntityEvent){
-        Entity damagerEntity = entityDamageByEntityEvent.getDamager();
-        Entity damagedEntity = entityDamageByEntityEvent.getEntity();
-        if (damagerEntity instanceof Player && damagedEntity instanceof Player && hasNoStartedGame((Player) damagerEntity))
-        {
-            entityDamageByEntityEvent.setCancelled(true);
-        }
-    }
     private void cancelInventoryClickEvent(InventoryClickEvent inventoryClickEvent){
         Player player = (Player) inventoryClickEvent.getWhoClicked();
         if (player.getGameMode() == GameMode.CREATIVE) return;
@@ -85,6 +81,7 @@ public class Permission implements Listener {
             inventoryClickEvent.setCancelled(true);
         }
     }
+        //Damage Methods
     private void cancelDecorDamage(EntityDamageByEntityEvent entityDamageByEntityEvent){
         Entity damager = entityDamageByEntityEvent.getDamager();
         Player player = (Player) damager;
@@ -94,6 +91,13 @@ public class Permission implements Listener {
             entityDamageByEntityEvent.setCancelled(true);
         }
     }
+    private void cancelDamageAtSpawn(EntityDamageEvent entityDamageEvent){
+        Entity damageTaker = entityDamageEvent.getEntity();
+        if (damageTaker instanceof Player player && hasNoStartedGame(player)){
+            entityDamageEvent.setCancelled(true);
+        }
+    }
+
     //Game Checkers
     private boolean hasNoStartedGame(Player player){
         Games games = germany.gameManager().getGame(player);
