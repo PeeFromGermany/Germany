@@ -9,7 +9,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class GameUtil {
 
-
     public static void setGameAttributesAfterStart(Player player){
         AttributeInstance a = player.getAttribute(Attribute.SCALE);
         final double SCALE_SIZE = 0.1;
@@ -35,6 +34,10 @@ public class GameUtil {
         itemMeta.setItemName(chatColor + name);
         item.setItemMeta(itemMeta);
         player.getInventory().setItem(slot, item);
+    }
+
+    public static void countDownEnded(Player player){
+        player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BANJO, 10f, 1f);
     }
     public static void addPointSound(Player player){
         player.playSound(player, Sound.BLOCK_NOTE_BLOCK_COW_BELL, 10f ,1f);

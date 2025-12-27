@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.germankids.germany.Germany;
 import org.germankids.germany.game.Games;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +26,7 @@ public class GameManager {
         gamesList.add(new Games(gameTwo, germany));
     }
 
+    @Nullable
     public Games getGame(Player player){
         UUID playerUUID = player.getUniqueId();
         for(Games games : gamesList) {
@@ -33,6 +35,7 @@ public class GameManager {
         }
         return null;
     }
+    @Nullable
     public Games getGame(int gameId){
         for(Games games : gamesList){
             if(games.getGameId() == gameId) return games;

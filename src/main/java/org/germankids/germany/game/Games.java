@@ -10,6 +10,7 @@ import org.germankids.germany.Germany;
 import org.germankids.germany.manager.ConfigManager;
 import org.germankids.germany.minigames.DragonEggGame;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -26,6 +27,7 @@ public class Games {
     public final Location lobbySpawn = ConfigManager.getLobby();
     private int gameId;
     private List<UUID> uuidList;
+    private List<UUID> uuidWaiterList;
     private GameStatus gameStatus;
 
 
@@ -35,6 +37,7 @@ public class Games {
         dragonEggGame = new DragonEggGame(this);
         countdown = new Countdown(this, germany);
         uuidList = new ArrayList<>();
+        uuidWaiterList = new ArrayList<>();
         gameStatus = GameStatus.RECRUITING;
     }
 
@@ -49,6 +52,7 @@ public class Games {
     }
     public void reset(){
         uuidList.clear();
+        uuidWaiterList.clear();
         gameStatus = GameStatus.RECRUITING;
         dragonEggGame = new DragonEggGame(this);
         countdown = new Countdown(this, germany);
@@ -64,8 +68,10 @@ public class Games {
         GameUtil.giveItem(player, Material.REDSTONE,4, "Leave", ChatColor.RED);
         UUID uuid = player.getUniqueId();
         uuidList.add(uuid);
+        uuidWaiterList.add(uuid);
         if (uuidList.size() >= REQUIRED_PLAYERS){
             countdown.start();
+            uuidWaiterList.clear();
             gameStatus = GameStatus.STARTING;
         }
     }
@@ -73,6 +79,7 @@ public class Games {
     public void removePlayer(Player player){
         UUID uuid = player.getUniqueId();
         uuidList.remove(uuid);
+        uuidWaiterList.remove(uuid);
         player.teleport(lobbySpawn);
         player.getInventory().clear();
         GameUtil.giveItem(player, Material.COMPASS,4,"Game Selector", ChatColor.AQUA);
@@ -101,6 +108,7 @@ public class Games {
         return gameStatus;
     }
     public List<UUID> getUuidList() {return uuidList;}
+    public List<UUID> getUuidWaiterList() {return uuidWaiterList;}
     public int getGameId(){return gameId;}
     public DragonEggGame getDragonEggGame(){
         return dragonEggGame;

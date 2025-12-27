@@ -9,7 +9,6 @@ import org.germankids.germany.game.GameUtil;
 import org.germankids.germany.game.Games;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 

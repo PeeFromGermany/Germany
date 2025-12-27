@@ -22,7 +22,7 @@ public class ScoreAdder implements Listener {
     public void onDragonEggInteraction(PlayerInteractEvent event){
         Block block = event.getClickedBlock();
         if (event.getAction().isRightClick() && block != null){
-            Material materialOfClickedOn = event.getClickedBlock().getType();
+            Material materialOfClickedOn = block.getType();
             if (materialOfClickedOn == Material.PODZOL){
                 Player player = event.getPlayer();
                 Games games = germany.gameManager().getGame(player);
