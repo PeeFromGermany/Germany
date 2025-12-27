@@ -86,6 +86,9 @@ public class Permission implements Listener {
         }
     }
     private void cancelDecorDamage(EntityDamageByEntityEvent entityDamageByEntityEvent){
+        Entity damager = entityDamageByEntityEvent.getDamager();
+        Player player = (Player) damager;
+        if (player.getGameMode() == GameMode.CREATIVE) return;
         EntityType damagedEntityType = entityDamageByEntityEvent.getEntity().getType();
         if (Arrays.asList(entityDecors).contains(damagedEntityType)){
             entityDamageByEntityEvent.setCancelled(true);
