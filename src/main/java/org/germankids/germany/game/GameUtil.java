@@ -42,4 +42,12 @@ public class GameUtil {
     public static void addPointSound(Player player){
         player.playSound(player, Sound.BLOCK_NOTE_BLOCK_COW_BELL, 10f ,1f);
     }
+
+    public static ItemStack createGuiItem(Material material, String name) {
+        ItemStack item = new ItemStack(material, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(name);
+        item.setItemMeta(meta);
+        return item;
+    }
 }

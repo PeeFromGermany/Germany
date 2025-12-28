@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.germankids.germany.Germany;
@@ -24,7 +25,8 @@ public class Permission implements Listener {
             EntityType.ARMOR_STAND,
             EntityType.ITEM_FRAME,
             EntityType.GLOW_ITEM_FRAME,
-            EntityType.MINECART
+            EntityType.MINECART,
+            EntityType.PAINTING
     };
 
     public Permission(Germany germany){
@@ -66,6 +68,10 @@ public class Permission implements Listener {
     public void onInventoryClick(InventoryClickEvent event){
         cancelInventoryClickEvent(event);
     }
+    @EventHandler
+    public void onHangingBreak(HangingBreakByEntityEvent event){
+        cancelHangingBreak(event);
+    }
 
     //Cancel Methods
     private void cancelPlayerEvent(PlayerEvent playerEvent){
@@ -91,6 +97,13 @@ public class Permission implements Listener {
             entityDamageByEntityEvent.setCancelled(true);
         }
     }
+    private void cancelHangingBreak(HangingBreakByEntityEvent hangingBreakByEntityEvent){
+        Entity damager = hangingBreakByEntityEvent.getRemover();
+        Player player = (Player) damager;
+        if (player.getGameMode() == GameMode.CREATIVE) return;
+        hangingBreakByEntityEvent.setCancelled(true);
+    }
+
     private void cancelDamageAtSpawn(EntityDamageEvent entityDamageEvent){
         Entity damageTaker = entityDamageEvent.getEntity();
         if (damageTaker instanceof Player player && hasNoStartedGame(player)){

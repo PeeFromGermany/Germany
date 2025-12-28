@@ -48,7 +48,7 @@ public class DragonEggGame {
     }
 
     private void gameStartBlockSpawn(){
-        for (int i = 0; i < 4; i++) spawnDragonEggAtRandomLoc();
+        for (int i = 0; i < 3; i++) spawnDragonEggAtRandomLoc();
     }
 
     public void start(){

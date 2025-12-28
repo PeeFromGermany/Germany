@@ -10,6 +10,7 @@ import org.germankids.germany.manager.ConfigManager;
 import org.germankids.germany.manager.GameManager;
 import org.germankids.germany.manager.GameJoinManager;
 import org.germankids.germany.score.ScoreAdder;
+import org.germankids.germany.voting.VoteRegister;
 
 public final class Germany extends JavaPlugin {
 
@@ -31,6 +32,7 @@ public final class Germany extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
         Bukkit.getPluginManager().registerEvents(new Permission(this), this);
         Bukkit.getPluginManager().registerEvents(new ItemInteract(), this);
+        Bukkit.getPluginManager().registerEvents(new VoteRegister(this), this);
         getCommand("mayhem").setExecutor(new MayhemCommand(this));
     }
     @Override

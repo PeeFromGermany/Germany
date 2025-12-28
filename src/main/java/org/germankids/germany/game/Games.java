@@ -10,8 +10,8 @@ import org.germankids.germany.Germany;
 import org.germankids.germany.manager.ConfigManager;
 import org.germankids.germany.minigames.DragonEggGame;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,10 +26,17 @@ public class Games {
     public final Location gameLobbySpawn = ConfigManager.getGameLobby();
     public final Location lobbySpawn = ConfigManager.getLobby();
     private int gameId;
+
     private List<UUID> uuidList;
     private List<UUID> uuidWaiterList;
     private GameStatus gameStatus;
+    private List<UUID> desertVotes;
+    private List<UUID> twoBrothersVotes;
 
+    private void initializeMapVotes(){
+        desertVotes = new ArrayList<>();
+        twoBrothersVotes = new ArrayList<>();
+    }
 
     public Games(int gameId, Germany germany){
         this.germany = germany;
@@ -39,6 +46,7 @@ public class Games {
         uuidList = new ArrayList<>();
         uuidWaiterList = new ArrayList<>();
         gameStatus = GameStatus.RECRUITING;
+        initializeMapVotes();
     }
 
     public void start(){
@@ -63,9 +71,11 @@ public class Games {
             player.sendMessage(ChatColor.RED + "The game has already started.");
             return;
         }
+
         player.teleport(gameLobbySpawn);
         player.getInventory().clear();
         GameUtil.giveItem(player, Material.REDSTONE,4, "Leave", ChatColor.RED);
+        GameUtil.giveItem(player, Material.FEATHER,0, "Map Voting", ChatColor.YELLOW);
         UUID uuid = player.getUniqueId();
         uuidList.add(uuid);
         uuidWaiterList.add(uuid);
@@ -80,6 +90,7 @@ public class Games {
         UUID uuid = player.getUniqueId();
         uuidList.remove(uuid);
         uuidWaiterList.remove(uuid);
+        removeMapVote(player);
         player.teleport(lobbySpawn);
         player.getInventory().clear();
         GameUtil.giveItem(player, Material.COMPASS,4,"Game Selector", ChatColor.AQUA);
@@ -112,5 +123,28 @@ public class Games {
     public int getGameId(){return gameId;}
     public DragonEggGame getDragonEggGame(){
         return dragonEggGame;
+    }
+
+    public int getDesertVotes() {
+        return desertVotes.size();
+    }
+
+    public int getTwoBrothersVotes() {
+        return twoBrothersVotes.size();
+    }
+
+    public void addPlayerToDesertVotes(Player player){
+        if (desertVotes.contains(player.getUniqueId())) return;
+        removeMapVote(player);
+        desertVotes.add(player.getUniqueId());
+    }
+    public void addPlayerToTwoBrothersVotes(Player player){
+        if (twoBrothersVotes.contains(player.getUniqueId())) return;
+        removeMapVote(player);
+        twoBrothersVotes.add(player.getUniqueId());
+    }
+    public void removeMapVote(Player player){
+        if (desertVotes.contains(player.getUniqueId())) desertVotes.remove(player.getUniqueId());
+        if (twoBrothersVotes.contains(player.getUniqueId())) twoBrothersVotes.remove(player.getUniqueId());
     }
 }

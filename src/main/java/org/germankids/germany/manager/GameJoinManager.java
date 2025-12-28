@@ -8,6 +8,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.germankids.germany.Germany;
 import org.germankids.germany.game.Games;
+import org.jspecify.annotations.NonNull;
 
 public class GameJoinManager implements Listener {
 
@@ -19,11 +20,13 @@ public class GameJoinManager implements Listener {
 
     private void addPlayer(Player player, int gameId){
         Games game = germany.gameManager().getGame(gameId);
+        if (game == null) return;
         game.addPlayer(player);
     }
 
     private void removePlayer(Player player){
         Games game = germany.gameManager().getGame(player);
+        if (game == null) return;
         game.removePlayer(player);
     }
 
