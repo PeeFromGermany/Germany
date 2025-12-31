@@ -79,7 +79,8 @@ public class Games {
         UUID uuid = player.getUniqueId();
         uuidList.add(uuid);
         uuidWaiterList.add(uuid);
-        if (uuidList.size() >= REQUIRED_PLAYERS){
+        if (uuidList.size() == REQUIRED_PLAYERS){
+            countdown = new Countdown(this, germany);
             countdown.start();
             uuidWaiterList.clear();
             gameStatus = GameStatus.STARTING;

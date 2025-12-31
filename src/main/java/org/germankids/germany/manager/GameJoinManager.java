@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.germankids.germany.Germany;
 import org.germankids.germany.game.Games;
 import org.jspecify.annotations.NonNull;
@@ -46,5 +47,11 @@ public class GameJoinManager implements Listener {
         if (itemStack == null) return;
         var clickedOnItem = itemStack.getType();
         if(clickedOnItem == Material.REDSTONE) removePlayer(player);
+    }
+
+    @EventHandler
+    public void onPlayerGameLeave(PlayerQuitEvent event){
+        var player = event.getPlayer();
+        removePlayer(player);
     }
 }
