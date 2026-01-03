@@ -10,32 +10,47 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.germankids.germany.manager.ConfigManager;
+import org.germankids.germany.manager.GameManager;
 
-public class ItemInteract implements Listener{
-    private Inventory inventory;
+public class ItemInteract implements Listener {
 
-    public ItemInteract(){
-        inventory = Bukkit.createInventory(null, 9, "Menu");
-        inventory.addItem(createGuiItem(Material.DIAMOND_SWORD, ChatColor.BLUE + "Game 1"));
+    private final GameManager gameManager;
+
+    public ItemInteract(GameManager gameManager){
+        this.gameManager = gameManager;
     }
 
     @EventHandler
     public void onCompassRightClick(PlayerInteractEvent e){
-        if(e.getMaterial() == Material.COMPASS){
-            Player player = e.getPlayer();
-            player.openInventory(initializeGui());
-        }
+        if (e.getItem() == null) return;
+        if (e.getItem().getType() != Material.COMPASS) return;
+
+        Player player = e.getPlayer();
+        player.openInventory(createMenu());
     }
 
-    private Inventory initializeGui(){
+    private Inventory createMenu(){
+        int amountOfGames = ConfigManager.getAmountOfGames();
+
+        // size rounded up to multiple of 9
+        int size = ((amountOfGames - 1) / 9 + 1) * 9;
+        Inventory inventory = Bukkit.createInventory(null, size, "Select a Game");
+
+        for (int i = 1; i <= amountOfGames; i++) {
+            inventory.addItem(createGameItem(i));
+        }
+
         return inventory;
     }
 
-    private ItemStack createGuiItem(Material material, String name) {
-        ItemStack item = new ItemStack(material, 1);
+    private ItemStack createGameItem(int gameId){
+        ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(name);
+
+        meta.setDisplayName(ChatColor.BLUE + "Game " + gameId);
         item.setItemMeta(meta);
+
         return item;
     }
 }

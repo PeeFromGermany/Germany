@@ -1,13 +1,11 @@
 package org.germankids.germany.game;
 
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.germankids.germany.Germany;
 import org.germankids.germany.manager.ConfigManager;
+import org.germankids.germany.manager.WorldManager;
 import org.germankids.germany.minigames.DragonEggGame;
 
 import java.util.ArrayList;
@@ -17,13 +15,12 @@ import java.util.UUID;
 
 public class Games {
 
-
+    private World gameWorld;
     private DragonEggGame dragonEggGame;
     private Countdown countdown;
     private Germany germany;
 
     public final int REQUIRED_PLAYERS = 2;
-    public final Location gameLobbySpawn = ConfigManager.getGameLobby();
     public final Location lobbySpawn = ConfigManager.getLobby();
     private int gameId;
 
@@ -41,6 +38,7 @@ public class Games {
     public Games(int gameId, Germany germany){
         this.germany = germany;
         this.gameId = gameId;
+        this.gameWorld = WorldManager.createGameWorld(gameId, germany);
         dragonEggGame = new DragonEggGame(this);
         countdown = new Countdown(this, germany);
         uuidList = new ArrayList<>();
@@ -64,6 +62,8 @@ public class Games {
         gameStatus = GameStatus.RECRUITING;
         dragonEggGame = new DragonEggGame(this);
         countdown = new Countdown(this, germany);
+        this.gameWorld = WorldManager.resetGameWorld(gameId, germany);
+        GameUtil.updateAllTabLists(germany.gameManager());
     }
 
     public void addPlayer(Player player){
@@ -72,13 +72,14 @@ public class Games {
             return;
         }
 
-        player.teleport(gameLobbySpawn);
+        player.teleport(getGameLobbySpawn());
         player.getInventory().clear();
         GameUtil.giveItem(player, Material.REDSTONE,4, "Leave", ChatColor.RED);
         GameUtil.giveItem(player, Material.FEATHER,0, "Map Voting", ChatColor.YELLOW);
         UUID uuid = player.getUniqueId();
         uuidList.add(uuid);
         uuidWaiterList.add(uuid);
+        GameUtil.updateAllTabLists(germany.gameManager());
         if (uuidList.size() == REQUIRED_PLAYERS){
             countdown = new Countdown(this, germany);
             countdown.start();
@@ -95,6 +96,7 @@ public class Games {
         player.teleport(lobbySpawn);
         player.getInventory().clear();
         GameUtil.giveItem(player, Material.COMPASS,4,"Game Selector", ChatColor.AQUA);
+        GameUtil.updateAllTabLists(germany.gameManager());
         if (getUuidList().size() < REQUIRED_PLAYERS && gameStatus == GameStatus.STARTING){
             gameStatus = GameStatus.RECRUITING;
             countdown.cancel();
@@ -115,6 +117,7 @@ public class Games {
             player.sendTitle(title,subTitle, 5, 10, 5);
         }
     }
+
 
     public GameStatus getGameStatus(){
         return gameStatus;
@@ -147,5 +150,21 @@ public class Games {
     public void removeMapVote(Player player){
         if (desertVotes.contains(player.getUniqueId())) desertVotes.remove(player.getUniqueId());
         if (twoBrothersVotes.contains(player.getUniqueId())) twoBrothersVotes.remove(player.getUniqueId());
+    }
+
+    public World getGameWorld() {
+        return gameWorld;
+    }
+
+    public Location getGameLobbySpawn() {
+        Location base = ConfigManager.getGameLobby();
+        return new Location(
+                gameWorld,
+                base.getX(),
+                base.getY(),
+                base.getZ(),
+                base.getYaw(),
+                base.getPitch()
+        );
     }
 }

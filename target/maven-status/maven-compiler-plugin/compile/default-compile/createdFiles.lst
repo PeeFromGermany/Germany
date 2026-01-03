@@ -1,4 +1,5 @@
 org\germankids\germany\listener\Permission.class
+org\germankids\germany\manager\WorldManager.class
 org\germankids\germany\game\Games.class
 org\germankids\germany\game\GameUtil.class
 org\germankids\germany\Mayhem.class

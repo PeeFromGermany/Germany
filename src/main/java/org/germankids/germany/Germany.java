@@ -29,9 +29,9 @@ public final class Germany extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new ScoreAdder(this),this);
         Bukkit.getPluginManager().registerEvents(gameJoinManager, this);
-        Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
+        Bukkit.getPluginManager().registerEvents(new JoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new Permission(this), this);
-        Bukkit.getPluginManager().registerEvents(new ItemInteract(), this);
+        Bukkit.getPluginManager().registerEvents(new ItemInteract(gameManager), this);
         Bukkit.getPluginManager().registerEvents(new VoteRegister(this), this);
         getCommand("mayhem").setExecutor(new MayhemCommand(this));
     }

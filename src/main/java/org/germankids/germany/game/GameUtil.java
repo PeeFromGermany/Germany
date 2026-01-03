@@ -6,6 +6,9 @@ import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.germankids.germany.manager.GameManager;
+
+import java.util.UUID;
 
 public class GameUtil {
 
@@ -49,5 +52,31 @@ public class GameUtil {
         meta.setDisplayName(name);
         item.setItemMeta(meta);
         return item;
+    }
+
+    public static void updateAllTabLists(GameManager gameManager) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            UUID uuid = player.getUniqueId();
+
+            // Determine which zone the player is in
+            Games playerGame = gameManager.getGame(player);
+            boolean isInGame = playerGame != null;
+            boolean isInLobby = gameManager.getGame(player) == null;
+
+            for (Player other : Bukkit.getOnlinePlayers()) {
+                UUID otherUUID = other.getUniqueId();
+
+                Games otherGame = gameManager.getGame(other);
+                boolean otherInGame = otherGame != null;
+                boolean otherInLobby = gameManager.getGame(other) == null;
+
+                // Show player if both are in same game OR both in lobby
+                if ((isInLobby && otherInLobby) || (isInGame && playerGame == otherGame)) {
+                    player.showPlayer(other);
+                } else {
+                    player.hidePlayer(other);
+                }
+            }
+        }
     }
 }

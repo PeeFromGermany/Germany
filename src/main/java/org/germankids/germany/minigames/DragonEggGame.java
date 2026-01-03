@@ -30,9 +30,9 @@ public class DragonEggGame {
         this.games = games;
         playerStats = new HashMap<>();
     }
-    private Location spawnLocation(){
+    private Location spawnLocation(World world){
         return new Location(
-                Bukkit.getWorld("world"),
+                world,
                 coordsX+getRandom(0,maxXRange),
                 coordsY + 2,
                 coordsZ+getRandom(0,maxZRange));
@@ -41,24 +41,24 @@ public class DragonEggGame {
         return random.nextInt(max - min) + min;
     }
 
-    public void spawnDragonEggAtRandomLoc(){
-        World world = Bukkit.getWorld("world");
-        Block block = world.getBlockAt(spawnLocation());
+    public void spawnDragonEggAtRandomLoc(World world){
+        Block block = world.getBlockAt(spawnLocation(world));
         block.setType(Material.PODZOL);
     }
 
-    private void gameStartBlockSpawn(){
-        for (int i = 0; i < 3; i++) spawnDragonEggAtRandomLoc();
+    private void gameStartBlockSpawn(World world){
+        for (int i = 0; i < 3; i++) spawnDragonEggAtRandomLoc(world);
     }
 
     public void start(){
         for (UUID uuid : games.getUuidList()){
             Player player = Bukkit.getPlayer(uuid);
+
             if (player == null) return;
             player.getInventory().clear();
             GameUtil.setGameAttributesAfterStart(player);
             playerStats.put(uuid, 0);
-            gameStartBlockSpawn();
+            gameStartBlockSpawn(games.getGameWorld());
         }
     }
 

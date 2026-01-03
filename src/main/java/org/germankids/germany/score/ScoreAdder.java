@@ -32,7 +32,7 @@ public class ScoreAdder implements Listener {
                 games.getDragonEggGame().addPoint(player);
                 GameUtil.addPointSound(player);
                 block.setType(Material.AIR);
-                games.getDragonEggGame().spawnDragonEggAtRandomLoc();
+                games.getDragonEggGame().spawnDragonEggAtRandomLoc(games.getGameWorld());
             }
         }
     }

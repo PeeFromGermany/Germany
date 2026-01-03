@@ -1,21 +1,17 @@
-game-lobby:
-  world: 'world'
-  x: -21.5
-  y: 7
-  z: 291.5
-  yaw: 0
-  pitch: 0
-game-lobby2:
-  world: 'world'
-  x: 52.5
-  y: 149
-  z: -121.5
-  yaw: -90
-  pitch: 0
+amount-of-games: 2
+
 lobby:
-  world: 'world'
+  world: world
   x: -84.5
   y: -30
   z: 25.5
+  yaw: 0
+  pitch: 0
+
+game-lobby:
+  world: world
+  x: -21.5
+  y: 7
+  z: 291.5
   yaw: 0
   pitch: 0
