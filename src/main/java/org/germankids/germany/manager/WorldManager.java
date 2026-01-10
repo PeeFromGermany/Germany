@@ -91,4 +91,18 @@ public class WorldManager {
 
         return Bukkit.createWorld(new WorldCreator(worldName));
     }
+
+    public static void deleteAllGameWorlds(int amountOfGames) {
+        for (int i = 1; i <= amountOfGames; i++) {
+            String worldName = "game_world_" + i;
+
+            World world = Bukkit.getWorld(worldName);
+            if (world != null) {
+                Bukkit.unloadWorld(world, false);
+            }
+
+            File worldFolder = new File(Bukkit.getWorldContainer(), worldName);
+            deleteWorldFolder(worldFolder);
+        }
+    }
 }

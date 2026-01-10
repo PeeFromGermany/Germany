@@ -2,6 +2,7 @@ org\germankids\germany\listener\Permission.class
 org\germankids\germany\manager\WorldManager.class
 org\germankids\germany\game\Games.class
 org\germankids\germany\game\GameUtil.class
+org\germankids\germany\listener\TeamSelectListener.class
 org\germankids\germany\Mayhem.class
 org\germankids\germany\Mayhem$1.class
 org\germankids\germany\score\ScoreAdder.class
@@ -10,6 +11,7 @@ org\germankids\germany\listener\ItemInteract.class
 org\germankids\germany\manager\ConfigManager.class
 org\germankids\germany\Germany.class
 org\germankids\germany\manager\GameManager.class
+org\germankids\germany\game\Games$Team.class
 org\germankids\germany\voting\VoteRegister.class
 org\germankids\germany\commands\MayhemCommand.class
 org\germankids\germany\game\Countdown.class

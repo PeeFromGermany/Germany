@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.germankids.germany.Germany;
 import org.germankids.germany.game.GameUtil;
 import org.germankids.germany.game.Games;
+import org.germankids.germany.manager.ConfigManager;
 
 public class VoteRegister implements Listener {
 
@@ -29,28 +30,46 @@ public class VoteRegister implements Listener {
         Player player = event.getPlayer();
         Games games = germany.gameManager().getGame(player);
         if (games == null) return;
-        ItemStack itemStack = event.getItem();
-        if(itemStack == null) return;
-        if (itemStack.getType() == Material.FEATHER){
-            ItemStack desert = GameUtil.createGuiItem(
-                    Material.DEAD_BUSH, ChatColor.YELLOW + "Desert (" + games.getDesertVotes() + " Votes" + ")");
-            ItemStack twoBrothers = GameUtil.createGuiItem(
-                    Material.RED_CONCRETE,
-                    ChatColor.GRAY + "Two Brothers " + ChatColor.YELLOW + "(" + games.getTwoBrothersVotes() + " Votes" + ")");
-            voteGui.setItem(3, desert);
-            voteGui.setItem(5, twoBrothers);
-            player.openInventory(voteGui);
+
+        ItemStack item = event.getItem();
+        if (item == null || item.getType() != Material.FEATHER) return;
+
+        Inventory gui = Bukkit.createInventory(null, 9, "Kies een map");
+
+        for (String mapId : ConfigManager.getMapIds()) {
+            String name = ConfigManager.getMapName(mapId);
+            Material material = ConfigManager.getMapMaterial(mapId);
+            int slot = ConfigManager.getMapSlot(mapId);
+            int votes = games.getVotes(mapId);
+
+            ItemStack mapItem = GameUtil.createGuiItem(
+                    material,
+                    ChatColor.YELLOW + name + " (" + votes + " Votes)"
+            );
+
+            gui.setItem(slot, mapItem);
         }
+
+        player.openInventory(gui);
     }
+
+
     @EventHandler
     public void onMapPick(InventoryClickEvent event){
         Player player = (Player) event.getWhoClicked();
         Games games = germany.gameManager().getGame(player);
         if (games == null) return;
-        ItemStack itemStack = event.getCurrentItem();
-        if(itemStack == null) return;
-        if(itemStack.getType() == Material.DEAD_BUSH) games.addPlayerToDesertVotes(player);
-        if (itemStack.getType() == Material.RED_CONCRETE) games.addPlayerToTwoBrothersVotes(player);
-        player.closeInventory();
+
+        ItemStack item = event.getCurrentItem();
+        if (item == null) return;
+
+        for (String mapId : ConfigManager.getMapIds()) {
+            if (item.getType() == ConfigManager.getMapMaterial(mapId)) {
+                games.vote(player, mapId);
+                player.closeInventory();
+                return;
+            }
+        }
     }
+
 }

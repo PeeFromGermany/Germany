@@ -15,3 +15,40 @@ game-lobby:
   z: 291.5
   yaw: 0
   pitch: 0
+
+maps:
+  desert:
+    display-name: "Desert"
+    material: DEAD_BUSH
+    slot: 3
+    spawn:
+      world: game_world
+      x: 0
+      y: 80
+      z: 0
+      yaw: 0
+      pitch: 0
+
+  two_brothers:
+    display-name: "Two Brothers"
+    material: RED_CONCRETE
+    slot: 5
+    spawn:
+      world: game_world
+      x: 100
+      y: 80
+      z: 100
+      yaw: 0
+      pitch: 0
+
+teams:
+  Team_One:
+    name: "Team Nivia"
+    material: RED_WOOL
+    slot: 3
+    color: RED
+  Team_Two:
+    name: "Team Rhelak"
+    material: BLUE_WOOL
+    slot: 5
+    color: BLUE

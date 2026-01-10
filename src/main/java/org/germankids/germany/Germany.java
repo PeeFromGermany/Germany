@@ -6,9 +6,11 @@ import org.germankids.germany.commands.MayhemCommand;
 import org.germankids.germany.listener.ItemInteract;
 import org.germankids.germany.listener.JoinListener;
 import org.germankids.germany.listener.Permission;
+import org.germankids.germany.listener.TeamSelectListener;
 import org.germankids.germany.manager.ConfigManager;
 import org.germankids.germany.manager.GameManager;
 import org.germankids.germany.manager.GameJoinManager;
+import org.germankids.germany.manager.WorldManager;
 import org.germankids.germany.score.ScoreAdder;
 import org.germankids.germany.voting.VoteRegister;
 
@@ -26,18 +28,22 @@ public final class Germany extends JavaPlugin {
         GameJoinManager gameJoinManager = new GameJoinManager(this);
 
         ConfigManager.setupConfig(this);
-
+        int amountOfGames = ConfigManager.getAmountOfGames();
         Bukkit.getPluginManager().registerEvents(new ScoreAdder(this),this);
         Bukkit.getPluginManager().registerEvents(gameJoinManager, this);
         Bukkit.getPluginManager().registerEvents(new JoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new Permission(this), this);
         Bukkit.getPluginManager().registerEvents(new ItemInteract(gameManager), this);
         Bukkit.getPluginManager().registerEvents(new VoteRegister(this), this);
+        Bukkit.getPluginManager().registerEvents(new TeamSelectListener(this), this);
         getCommand("mayhem").setExecutor(new MayhemCommand(this));
+
     }
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        int amountOfGames = ConfigManager.getAmountOfGames();
+        WorldManager.deleteAllGameWorlds(amountOfGames);
     }
 
     public GameManager gameManager(){
